@@ -1,0 +1,22 @@
+# Python bytecode and local environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local configuration and database
+.env
+.env.*
+!.env.example
+db.sqlite3
+*.sqlite3-journal
+
+# Generated Django files
+staticfiles/
+
+# Tooling and operating system files
+.coverage
+htmlcov/
+.ruff_cache/
+.pytest_cache/
+.DS_Store
