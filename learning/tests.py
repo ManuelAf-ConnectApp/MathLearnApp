@@ -39,6 +39,8 @@ class FlowTests(TestCase):
         worker = self.client.get(reverse('service_worker'))
         self.assertEqual(worker['Content-Type'], 'application/javascript')
         self.assertContains(worker, "addEventListener")
+        self.assertContains(worker, "STATIC_ASSETS")
+        self.assertContains(worker, "url.pathname.startsWith('/static/')")
 
     def test_english_and_catalan_interface_copy(self):
         for language, expected in (("en", "Let's learn maths!"), ("ca", "Aprenem matemàtiques!")):

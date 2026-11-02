@@ -110,7 +110,16 @@ def reset_progress(request):
     return redirect("dashboard")
 
 def service_worker(request):
-    script = """const CACHE='mathlearnapp-v1';self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(['/','/static/learning/app.css','/static/learning/logo.png']))));self.addEventListener('fetch',event=>{if(event.request.method!=='GET')return;event.respondWith(caches.match(event.request).then(hit=>hit||fetch(event.request).then(response=>{if(new URL(event.request.url).origin===location.origin){const copy=response.clone();caches.open(CACHE).then(cache=>cache.put(event.request,copy));}return response;})));});"""
+    script = """const CACHE='mathlearnapp-v2';
+const STATIC_ASSETS=['/static/learning/app.css','/static/learning/logo.png'];
+self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(STATIC_ASSETS)).then(()=>self.skipWaiting())));
+self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
+self.addEventListener('fetch',event=>{
+  if(event.request.method!=='GET')return;
+  const url=new URL(event.request.url);
+  if(url.origin!==location.origin||!url.pathname.startsWith('/static/'))return;
+  event.respondWith(caches.match(event.request).then(hit=>hit||fetch(event.request).then(response=>{const copy=response.clone();caches.open(CACHE).then(cache=>cache.put(event.request,copy));return response;})));
+});"""
     return HttpResponse(script, content_type="application/javascript")
 
 def levels(request, operation):
