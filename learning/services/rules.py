@@ -1,6 +1,7 @@
 """Central, deterministic-friendly rules for every generated question."""
 from dataclasses import dataclass
 from random import Random
+
 from django.utils.translation import get_language
 
 QUESTIONS_PER_SESSION = 10

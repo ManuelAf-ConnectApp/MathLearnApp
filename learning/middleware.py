@@ -1,7 +1,6 @@
 """Small translation layer for the existing child-facing Spanish copy."""
 from django.utils.translation import get_language
 
-
 COPY = {
     "en": {
         "Saltar al contenido": "Skip to content", "Edad:": "Age:", "Mi progreso": "My progress",

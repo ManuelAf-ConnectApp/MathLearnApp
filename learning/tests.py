@@ -1,9 +1,12 @@
 from datetime import timedelta
 from random import Random
+
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
+
 from .services.rules import OPERATIONS, SECONDS_BY_LEVEL, generate_question
+
 
 class RulesTests(TestCase):
     def test_questions_are_valid_for_every_setting(self):

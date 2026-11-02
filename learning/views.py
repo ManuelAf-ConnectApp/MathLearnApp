@@ -1,11 +1,22 @@
 from datetime import datetime, timedelta
+
 from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils import timezone
 from django.views.decorators.http import require_http_methods, require_POST
-from .services.rules import (LEVEL_NAMES, OPERATIONS, QUESTIONS_PER_SESSION, SECONDS_BY_LEVEL,
-                             explanation, generate_question, valid_age, valid_level)
+
+from .services.rules import (
+    LEVEL_NAMES,
+    OPERATIONS,
+    QUESTIONS_PER_SESSION,
+    SECONDS_BY_LEVEL,
+    explanation,
+    generate_question,
+    valid_age,
+    valid_level,
+)
+
 
 def _age(request):
     age = request.session.get("age")
